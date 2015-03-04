@@ -3,9 +3,9 @@ Gem::Specification.new do |spec|
   spec.version       = "0.0.1"
   spec.authors       = ["Taylor Lapeyre"]
   spec.email         = ["taylorlapeyre@gmail.com"]
-  spec.description   = "TODO: Add a description"
-  spec.summary       = "TODO: Add a summary"
-  spec.homepage      = "TODO: Add a homepage"
+  spec.description   = "Crawls Stack Overflow for the first answer it finds with a solution to some query."
+  spec.summary       = "Crawls Stack Overflow for the first answer it finds with a solution to some query."
+  spec.homepage      = "https://github.com/taylorlapeyre/lita-howdoi"
   spec.license       = "MIT"
   spec.metadata      = { "lita_plugin_type" => "handler" }
 

@@ -1,6 +1,6 @@
 # lita-howdoi
 
-TODO: Add a description of the plugin.
+Crawls Stack Overflow for the first answer it finds with a solution to some query.
 
 ## Installation
 
@@ -10,13 +10,12 @@ Add lita-howdoi to your Lita instance's Gemfile:
 gem "lita-howdoi"
 ```
 
-## Configuration
-
-TODO: Describe any configuration attributes the plugin exposes.
-
 ## Usage
 
-TODO: Describe the plugin's features and how to use them.
+```
+@robot: howdoi split a string in ruby
+...
+```
 
 ## License
 
