@@ -9,4 +9,9 @@ describe Lita::Handlers::Howdoi, lita_handler: true do
     send_command("howdoi split a string in ruby")
     expect(replies.last).to match /\.split/
   end
+
+  it "doesn't always return an answer" do
+    send_command("howdoi asdufkjhsdfjidsklf")
+    expect(replies.last).to match /Sorry/
+  end
 end

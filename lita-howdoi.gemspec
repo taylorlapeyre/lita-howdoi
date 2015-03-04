@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "lita-howdoi"
-  spec.version       = "0.0.1"
+  spec.version       = "0.0.2"
   spec.authors       = ["Taylor Lapeyre"]
   spec.email         = ["taylorlapeyre@gmail.com"]
   spec.description   = "Crawls Stack Overflow for the first answer it finds with a solution to some query."

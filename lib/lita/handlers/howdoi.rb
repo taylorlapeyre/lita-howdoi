@@ -3,14 +3,14 @@ require 'nokogiri'
 module Lita
   module Handlers
     class Howdoi < Handler
-      GOOGLE_SEARCH_URL = "http://www.google.com/search?q=site:stackoverflow.com+"
+      GOOGLE_SEARCH_URL = "http://stackoverflow.com/search"
 
       route(/^howdoi (.*)$/, :howdoi, command: true, help: {
         "howdoi QUERY" => "Searches Stack Overflow for the first answer it finds with a solution to QUERY.",
       })
 
-      def get_url(url)
-        http.get(url).body
+      def get_url(url, q="")
+        http.get(url, q: q).body
       end
 
       def is_question?(stackoverflow_url)
@@ -18,11 +18,11 @@ module Lita
       end
 
       def get_google_links(args)
-        page = get_url(URI.escape(GOOGLE_SEARCH_URL + args.join("+")))
+        page = get_url(GOOGLE_SEARCH_URL, args)
         html = Nokogiri.HTML(page)
         posts = []
-        html.css('.r a').each do |link|
-          posts << link[:href].gsub("/url?q=", "").gsub(/&(.*)/, "") if is_question?(link[:href])
+        html.css('.result-link a').each do |link|
+          posts << "http://stackoverflow.com#{link[:href]}"
         end
         posts
       end
@@ -37,7 +37,7 @@ module Lita
       end
 
       def howdoi(chat)
-        args = chat.matches[0].last.split
+        args = chat.matches[0].last.split.join("+")
         links = get_google_links(args)
         link = get_link_at_pos(links, 1)
 
@@ -51,10 +51,12 @@ module Lita
               collect(&:content).
               join(" " * 5 + '-' * 50 + "\n") ||
               ans.at_css("code").content
-            if instruction
+
+            unless instruction.empty?
               chat.reply "```\n#{instruction}```"
             else
-              chat.reply "```\n#{ans.at('.post-text').content}```"
+              p ans.at_css('.post-text').content
+              chat.reply "```\n#{ans.at_css('.post-text').content}```"
             end
           end
         else
